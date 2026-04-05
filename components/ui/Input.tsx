@@ -1,7 +1,7 @@
 "use client";
 
 import { Be_Vietnam_Pro } from "next/font/google";
-import React, { useRef, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 
 const beVietnam = Be_Vietnam_Pro({
   variable: "--font-be-vietnam",
@@ -9,12 +9,24 @@ const beVietnam = Be_Vietnam_Pro({
   weight: "400",
 });
 
-const Input = () => {
-  const [message, setMessage] = useState("");
+type Props = {
+  value: string,
+  onChange: (value: string) => void,
+  onSubmit: () => void
+}
+
+const Input = ({ value, onChange, onSubmit }: Props) => {
+  // const [message, setMessage] = useState("");
   const textAreaRef = useRef<HTMLTextAreaElement>(null);
 
+  useEffect(() => {
+    if(value === "" && textAreaRef.current) {
+      textAreaRef.current.style.height = 'auto';
+    }
+  }, [value])
+
   const handleMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
-    setMessage(e.target.value);
+    onChange(e.target.value);
 
     const textArea = textAreaRef.current;
     if (textArea) {
@@ -28,7 +40,7 @@ const Input = () => {
       ref={textAreaRef}
       placeholder="Hỏi về ngành học, điểm chuẩn, hướng nghiệp,..."
       rows={1}
-      value={message}
+      value={value}
       onChange={handleMessageChange}
       className={`${beVietnam.className} flex-1 resize-none overflow-auto max-h-40 min-h-6 text-sm/normal py-1 focus:outline-none text-white`}
     ></textarea>
