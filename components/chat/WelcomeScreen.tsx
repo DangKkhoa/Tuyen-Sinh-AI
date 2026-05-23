@@ -7,7 +7,7 @@ type Props = {
 
 const WelcomeScreen = ({ onSelect }: Props) => {
   return (
-    <div className="flex flex-col justify-center items-center py-10 px-6 h-[60vh]">
+    <div className="flex-1 flex flex-col justify-center items-center py-10 px-6 h-[60vh]">
       <div className="w-16 h-16 bg-linear-135 from-[#3b82f6] to-[#06b6d4] mb-6 shadow-[0px_0px_40px_rgba(59,130,246,0.3)]"></div>
       <h3 className="text-[#94a3b8] text-3xl font-semibold mb-3">
         Chào mừng đến TuyenSinhAI

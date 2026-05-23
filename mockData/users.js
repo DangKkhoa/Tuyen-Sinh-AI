@@ -1,0 +1,42 @@
+export const mockUsers = [
+  {
+    id: "user-1",
+    email: "student1@example.com",
+    password: "Password123!",
+    name: "Nguyễn Văn A",
+    role: "student",
+    createdAt: "2024-01-15T10:30:00Z",
+  },
+  {
+    id: "user-2",
+    email: "student2@example.com",
+    password: "Password456!",
+    name: "Trần Thị B",
+    role: "student",
+    createdAt: "2024-02-20T14:45:00Z",
+  },
+  {
+    id: "user-3",
+    email: "admin@example.com",
+    password: "AdminPass789!",
+    name: "Lê Minh C",
+    role: "admin",
+    createdAt: "2024-01-01T08:00:00Z",
+  },
+  {
+    id: "user-4",
+    email: "test@example.com",
+    password: "TestPass123!",
+    name: "Phạm Quý D",
+    role: "student",
+    createdAt: "2024-03-10T09:15:00Z",
+  },
+  {
+    id: "user-5",
+    email: "demo@example.com",
+    password: "DemoPass123!",
+    name: "Hoàng Thị E",
+    role: "student",
+    createdAt: "2024-03-18T16:20:00Z",
+  },
+];

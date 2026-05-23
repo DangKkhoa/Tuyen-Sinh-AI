@@ -22,7 +22,7 @@ const ChatWindow = () => {
   };
 
   return (
-    <div className="flex-1 flex flex-col overflow-hidden py-8">
+    <div className="flex-1 flex flex-col py-8">
       <div className="flex-1 max-w-190 m-auto px-6">
         {messages.length <= 0 ? (
           <WelcomeScreen onSelect={handleSend} />
