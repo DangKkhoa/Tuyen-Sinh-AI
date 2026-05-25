@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Eye, EyeOff } from "lucide-react";
 // import axios from "axios";
 import { mockUsers } from "@/mockData/users";
+import { mockLogin } from "@/mockData/auth";
 
 type AuthFormProps = {
   isSignUp: boolean;
@@ -24,59 +25,18 @@ const AuthForm = ({ isSignUp }: AuthFormProps) => {
   const handleSubmit = async (event: React.ChangeEvent<HTMLFormElement>) => {
     event.preventDefault();
 
-    if (!email || !password) {
-      alert("Vui lòng nhập email và mật khẩu");
-      return;
-    }
-
-    if (isSignUp && password !== confirmPassword) {
-      alert("Mật khẩu không khớp");
-      return;
-    }
-
-    // Mock authentication with mock data
-    const user = mockUsers.find((u) => u.email === email);
-
-    if (isSignUp) {
-      // Sign up: check if email already exists
-      if (user) {
-        alert("Email đã được sử dụng");
-        return;
-      }
-      console.log("Sign up successful for:", email);
-      alert("Đăng ký thành công! Vui lòng đăng nhập.");
-    } else {
-      // Login: validate credentials
-      if (!user) {
-        alert("Email không tồn tại");
-        return;
-      }
-
-      if (user.password !== password) {
-        alert("Mật khẩu không chính xác");
-        return;
-      }
-
-      console.log("Login successful for:", user);
-
-      // Store user data in localStorage
-      localStorage.setItem(
-        "user",
-        JSON.stringify({
-          id: user.id,
-          name: user.name,
-          email: user.email,
-          role: user.role,
-        }),
-      );
-
-      alert(`Đăng nhập thành công! Xin chào ${user.name}`);
-
-      // Redirect to home page
+    try {
+      const res = await mockLogin(email, password);
+      localStorage.setItem("token", res.data.access_token);
+      localStorage.setItem("user", JSON.stringify(res.data.user));
+      alert(`Xin chào ${res.data.user.name}`);
       router.push("/");
+    } catch (error) {
+      if (error instanceof Error) {
+        alert(error.message);
+      }
     }
 
-    // TODO: Uncomment axios code when backend is ready
     // try {
     //   const response = await axios.post(
     //     `${process.env.NEXT_PUBLIC_BASE_URL}/api/v1/auth/login`,
@@ -108,8 +68,8 @@ const AuthForm = ({ isSignUp }: AuthFormProps) => {
           </h1>
           <p className="mt-3 text-sm text-[#94a3b8]">
             {isSignUp
-              ? "Tạo tài khoản để sử dụng trợ lý tuyển sinh AI và tra cứu dữ liệu nhanh chóng."
-              : "Truy cập dữ liệu tuyển sinh và trợ lý AI theo cùng giao diện tối của trang chủ."}
+              ? "Tạo tài khoản để sử dụng trợ lý tư vấn tuyển sinh hoặc hướng nghiệp."
+              : "Truy cập dữ liệu tuyển sinh và lưu trữ các đoạn hội thoại để không bỏ qua những thông tin quan trọng."}
           </p>
         </div>
 
